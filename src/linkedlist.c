@@ -3,29 +3,38 @@
 
 #include "linkedlist.h"
 
-void llist_init(llist_t *ll)
+void llist_addValue(llist_t **ll, void *value)
 {
-    ll->next = NULL;
-    ll->prev = NULL;
-}
-
-void llist_add(llist_t *ll, void *value)
-{
-    llist_t *item = (llist_t *)value;
-    llist_t *last = ll;
-    while(last)
+    llist_t *prev = NULL;
+    while (*ll)
     {
-        last = last->next;
+        prev = *ll;
+        ll = &((*ll)->next);
     }
-    last->next = item;
+    *ll = malloc(sizeof(llist_t));
+    (*ll)->next = NULL;
+    (*ll)->prev = prev;
+    (*ll)->value = value;
 }
 
 void llist_print(llist_t *ll)
 {
     llist_t *item = ll;
-    while(item)
+    while (item)
     {
-        printf("[Prev] %-10p [Next] %-10p\n", item->prev, item->next);
+        printf("[Prev] %-10p [Next] %-10p [Value] %-10d\n", item->prev, item->next, *((int *)(item->value)));
         item = item->next;
+    }
+}
+
+void llist_free(llist_t *ll)
+{
+    llist_t *curr = ll;
+    llist_t *next = curr->next;
+    while(curr)
+    {
+        free(curr);
+        curr = next;
+        next = curr->next;
     }
 }
