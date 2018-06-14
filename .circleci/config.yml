@@ -1,0 +1,28 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: debian:stretch
+    steps:
+      - checkout
+      - run:
+          name: Greeting
+          command: echo Running Linkedlist tests
+      - run:
+          name: Print the Current Time
+          command: date
+      - run:
+          name: Install dependencies
+          command: apt update; apt install -y make build-essential
+      - run:
+          name: Build linkedlist.so library
+          command: make linkedlist.so
+      - run:
+          name: Build linkedlist executable
+          command: make
+      - run:
+          name: Print the available files
+          command: ls -lah bin
+      - run:
+          name: Run the shipped testing main function
+          command: ./bin/project
