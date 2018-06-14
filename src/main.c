@@ -1,19 +1,21 @@
 #include "linkedlist.h"
 
+typedef struct test
+{
+    llist_t *node;
+    char *key;
+    int value;
+} test_t;
+
 int main(void)
 {
-    int val1 = 1;
-    int val2 = 2;
-    int val3 = 3;
-    int val4 = 4;
-    int val5 = 5;
+    test_t test1;
+    test_t test2;
+    test_t test3;
 
-    llist_t *intlist = NULL;
-    llist_addValue(&intlist, &val1);
-    llist_addValue(&intlist, &val2);
-    llist_addValue(&intlist, &val3);
-    llist_addValue(&intlist, &val4);
-    llist_addValue(&intlist, &val5);
-    llist_print(intlist);
-    llist_free(intlist);
+    llist_add(&test1);
+    llist_add(&test2);
+    llist_add(&test3);
+
+    llist_print();
 }
