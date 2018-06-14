@@ -10,5 +10,6 @@ struct llist
     llist_t *prev;
 };
 
-bool llist_add(void *newvalue);
+bool llist_add(void *value);
+bool llist_delete(void *value);
 void llist_print();
