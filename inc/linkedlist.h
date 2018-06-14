@@ -12,4 +12,4 @@ struct llist
 
 bool llist_add(void *value);
 bool llist_delete(void *value);
-void llist_print();
+void llist_print(void (*print_callback)(void *value));

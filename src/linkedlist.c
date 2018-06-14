@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include <stdlib.h>
 
 #include "linkedlist.h"
@@ -64,7 +63,7 @@ bool llist_delete(void *value)
     return true;
 }
 
-void llist_print()
+void llist_print(void (*print_callback)(void *value))
 {
     llist_t *it = firstvalue;
     if (!it)
@@ -74,7 +73,7 @@ void llist_print()
 
     while (it)
     {
-        printf("[Address] %-20p [Previous] %-20p [Next] %-20p\n", it, it->prev, it->next);
+        print_callback(it);
         it = it->next;
     }
 }
