@@ -5,46 +5,21 @@
 #include <stdbool.h>
 #include <string.h>
 
-typedef struct test
-{
-    llist_t node;
-    int value;
-    char *key;
-} test_t;
-
 void print_keyvalue(void *keyvalue)
 {
-    test_t *value = (test_t *)keyvalue;
-    printf("{\"Key\":\"%s\",\"Value\":%d}\n", value->key, value->value);
+    llist_t *ll = (llist_t*) keyvalue;
+    printf("{\"Value\":%p}\n", (void *) ll->value);
 }
 
 int main(void)
 {
-    test_t testlist[6];
-    char key[10] = {'\0'};
+    llist_t *ll = ll_init();
 
-    for (int i = 0; i < 6; ++i)
-    {
-        sprintf(key, "Test%d", i);
-        testlist[i].key = malloc(strlen(key) + 1);
-        strcpy(testlist[i].key, key);
-        testlist[i].value = i;
-        llist_add(&testlist[i]);
-    }
+    char * test = "Hello World";
+    int * testt = malloc(sizeof(int));
+    *testt = 5;
 
-    llist_print(&print_keyvalue);
-    printf("\n");
-
-    llist_delete(&testlist[0]);
-    llist_delete(&testlist[2]);
-    llist_delete(&testlist[5]);
-
-    llist_print(&print_keyvalue);
-    printf("\n");
-
-    llist_add(&testlist[2]);
-    llist_add(&testlist[5]);
-
-    llist_print(&print_keyvalue);
-    printf("\n");
+    ll_add(ll, test, strlen(test)+1);
+    ll_add(ll, testt, sizeof(testt));
+    ll_print(ll, print_keyvalue);
 }

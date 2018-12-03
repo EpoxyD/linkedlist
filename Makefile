@@ -11,7 +11,7 @@ OBJECTS = $(SOURCES:$(SRC_FOLDER)/%.c=$(OBJ_FOLDER)/%.o)
 PROGRAM = $(shell basename `pwd`)
 
 CC := $(shell which gcc)
-CFLAGS = -Wall -W -O -I inc -fPIC
+CFLAGS = -Wall -W -O -I inc -fPIC -g
 LIBS = linkedlist
 LDFLAGS = -L$(LIB_FOLDER) -Wl,-rpath=$(LIB_FOLDER)
 MKDIR = mkdir -p
