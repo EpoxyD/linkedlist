@@ -5,21 +5,21 @@
 #include <stdbool.h>
 #include <string.h>
 
-void print_keyvalue(void *keyvalue)
+void print_callback(const node_t *node)
 {
-    llist_t *ll = (llist_t*) keyvalue;
-    printf("{\"Value\":%p}\n", (void *) ll->value);
+    printf("[%-20p] [%-20p] [%-20p] [%-20p] \n", node, node->prev, node->value, node->next);
 }
 
 int main(void)
 {
-    llist_t *ll = ll_init();
+    char *test = "Hello World";
+    int number = 12345;
+    int array[] = {1, 2, 3, 4, 5};
 
-    char * test = "Hello World";
-    int * testt = malloc(sizeof(int));
-    *testt = 5;
-
-    ll_add(ll, test, strlen(test)+1);
-    ll_add(ll, testt, sizeof(testt));
-    ll_print(ll, print_keyvalue);
+    node_t *list = NULL;
+    node_add(&list, test, strlen(test) + 1);
+    node_add(&list, &number, sizeof(number));
+    node_add(&list, array, sizeof(array));
+    node_del(list, &number);
+    node_clean(list);
 }

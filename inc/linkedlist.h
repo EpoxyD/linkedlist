@@ -1,18 +1,19 @@
 #pragma once
 
-typedef struct llist llist_t;
+#include <stdbool.h>
 
-struct llist
+typedef struct node node_t;
+
+struct node
 {
-    llist_t *next;
-    llist_t *prev;
-    void * value;
+    node_t *next;
+    node_t *prev;
+    void *value;
+    int size;
 };
 
-llist_t * ll_init();
-void ll_add(llist_t* ll, void* value, int value_size);
-void ll_print(llist_t *ll, void (*print_callback)(void *value));
+bool node_add(node_t **node, const void *value, const int value_size);
+bool node_del(node_t *node, const void *value);
+bool node_clean(node_t *node);
 
-// bool llist_add(void *value);
-// bool llist_delete(void *value);
-// void llist_print(void (*print_callback)(void *value));
+void node_print(node_t *node, void (*print_callback)(const node_t *value));

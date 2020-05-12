@@ -13,7 +13,7 @@ PROGRAM = $(shell basename `pwd`)
 CC := $(shell which gcc)
 CFLAGS = -Wall -Werror -I $(INC_FOLDER)
 LDFLAGS = -L$(LIB_FOLDER)
-LIBS = -llinkedlist.so
+LIBS = -llinkedlist
 MKDIR = mkdir -p
 
 ifdef DEBUG
@@ -22,9 +22,10 @@ endif
 
 all: library
 
-binary : main.c linkedlist.so
+binary : main.c library
 	$(MKDIR) $(BIN_FOLDER)
 	$(CC) $(CFLAGS) $(LDFLAGS) $(LIBS) -o $(BIN_FOLDER)/linkedlist $<
+	chmod +x $(BIN_FOLDER)/linkedlist
 
 library : $(OBJECTS)
 	$(MKDIR) $(LIB_FOLDER)
