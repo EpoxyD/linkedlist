@@ -29,13 +29,7 @@ bool node_add(node_t **node, const void *value, const int value_size)
 {
     node_t *new = node_allocate(node);
     new->size = value_size;
-    new->value = calloc(1, value_size);
-    if (!memcpy(new->value, value, value_size))
-    {
-        new->prev->next = NULL;
-        free(new);
-        return false;
-    }
+    new->value = (void *) value;
     return true;
 }
 
@@ -53,7 +47,6 @@ bool node_del(node_t *node, const void *value)
             iter->prev->next = iter->next;
         if (iter->next)
             iter->next->prev = iter->prev;
-        free(iter->value);
         iter->prev = NULL;
         iter->next = NULL;
         iter->value = NULL;
@@ -68,7 +61,6 @@ bool node_clean(node_t *node)
     while (node)
     {
         node_t *next = node->next;
-        free(node->value);
         free(node);
         node = next;
     }

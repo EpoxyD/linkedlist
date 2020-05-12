@@ -17,9 +17,13 @@ int main(void)
     int array[] = {1, 2, 3, 4, 5};
 
     node_t *list = NULL;
-    node_add(&list, test, strlen(test) + 1);
+    node_add(&list, &test, strlen(test) + 1);
     node_add(&list, &number, sizeof(number));
-    node_add(&list, array, sizeof(array));
+    node_add(&list, &array, sizeof(array));
+
+    node_print(list, print_callback);
+
     node_del(list, &number);
+
     node_clean(list);
 }

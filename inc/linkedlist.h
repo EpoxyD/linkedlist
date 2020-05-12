@@ -8,7 +8,7 @@ struct node
 {
     node_t *next;
     node_t *prev;
-    void *value;
+    const void *value;
     int size;
 };
 
