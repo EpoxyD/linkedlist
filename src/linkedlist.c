@@ -29,7 +29,7 @@ bool node_add(node_t **node, const void *value, const int value_size)
 {
     node_t *new = node_allocate(node);
     new->size = value_size;
-    new->value = (void *) value;
+    new->value = (void *)value;
     return true;
 }
 
@@ -76,41 +76,3 @@ void node_print(node_t *node, void (*print_callback)(const node_t *node))
         tmp = tmp->next;
     }
 }
-
-// llist_t * ll_init()
-// {
-//     llist_t * new = malloc(sizeof(llist_t));
-//     new->prev = new;
-//     new->next = new;
-//     new->value = NULL;
-//     return new;
-// }
-
-// void ll_add(llist_t* ll, void* value, int value_size)
-// {
-//     if(!ll) perror("init linkedlist");
-
-//     llist_t *it = ll;
-//     while(it->next != ll) {
-//         it = it->next;
-//     }
-//     it->next = ll_init();
-//     it->next->prev = it;
-//     it->next->next = ll;
-//     it->next->value = malloc(value_size);
-//     memcpy(it->next->value, value, value_size);
-//     return;
-// }
-
-// void ll_print(llist_t *ll, void (*print_callback)(void *value))
-// {
-//     llist_t *it = ll;
-//     if (!it) return;
-
-//     it = it->next;
-//     while (it != ll)
-//     {
-//         print_callback(it);
-//         it = it->next;
-//     }
-// }
