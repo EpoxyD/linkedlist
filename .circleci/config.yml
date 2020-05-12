@@ -6,12 +6,6 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Greeting
-          command: echo Running Linkedlist tests
-      - run:
-          name: Print the Current Time
-          command: date
-      - run:
           name: Install dependencies
           command: apt update; apt install -y make build-essential
       - run:

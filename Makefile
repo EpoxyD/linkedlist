@@ -11,22 +11,24 @@ OBJECTS = $(SOURCES:$(SRC_FOLDER)/%.c=$(OBJ_FOLDER)/%.o)
 PROGRAM = $(shell basename `pwd`)
 
 CC := $(shell which gcc)
-CFLAGS = -Wall -W -O -I inc -fPIC -g
-LIBS = linkedlist
-LDFLAGS = -L$(LIB_FOLDER) -Wl,-rpath=$(LIB_FOLDER)
+CFLAGS = -Wall -Werror -I $(INC_FOLDER)
+LDFLAGS = -L$(LIB_FOLDER)
+LIBS = -llinkedlist.so
 MKDIR = mkdir -p
 
-# gcc -c -o obj/*.o -Wall -W -O -I inc -fPIC
-# gcc -o bin/linkedlist -Iinc -Wall -Werror -fPIC
-# gcc -shared -o ../lib/liblinkedlist.so linkedlist.c -I ../inc/
+ifdef DEBUG
+CFLAGS += -g
+endif
 
-$(PROGRAM) : main.c $(LIBS).so
+all: library
+
+binary : main.c linkedlist.so
 	$(MKDIR) $(BIN_FOLDER)
-	$(CC) $(CFLAGS) $(LDFLAGS) $(LIBS:%=-l%) -o $(BIN_FOLDER)/$@ $<
+	$(CC) $(CFLAGS) $(LDFLAGS) $(LIBS) -o $(BIN_FOLDER)/linkedlist $<
 
-$(LIBS).so : $(OBJECTS)
+library : $(OBJECTS)
 	$(MKDIR) $(LIB_FOLDER)
-	$(CC) -shared $(CFLAGS) $(LDFLAGS) -o $(LIB_FOLDER)/lib$@ $^
+	$(CC) -shared $(CFLAGS) $(LDFLAGS) -o $(LIB_FOLDER)/liblinkedlist.so $^
 
 $(OBJ_FOLDER)/%.o : $(SRC_FOLDER)/%.c $(HEADERS)
 	$(MKDIR) $(OBJ_FOLDER)
