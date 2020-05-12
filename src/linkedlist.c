@@ -41,9 +41,6 @@ bool node_add(node_t **node, const void *value, const int value_size)
 
 bool node_del(node_t *node, const void *value)
 {
-    if (node == NULL)
-        return false;
-
     node_t *iter = node;
     while (iter)
     {
@@ -68,9 +65,6 @@ bool node_del(node_t *node, const void *value)
 
 bool node_clean(node_t *node)
 {
-    if (node == NULL)
-        return true;
-
     while (node)
     {
         node_t *next = node->next;
@@ -78,15 +72,11 @@ bool node_clean(node_t *node)
         free(node);
         node = next;
     }
-
     return true;
 }
 
 void node_print(node_t *node, void (*print_callback)(const node_t *node))
 {
-    if (node == NULL)
-        return;
-
     node_t *tmp = node;
     while (tmp)
     {
