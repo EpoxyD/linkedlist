@@ -27,6 +27,10 @@ static node_t *node_allocate(node_t **node)
 
 bool node_add(node_t **node, const void *value, const int value_size)
 {
+    if(node == NULL)
+        return false;
+    if(value == NULL)
+        return false;
     node_t *new = node_allocate(node);
     new->size = value_size;
     new->value = (void *)value;
@@ -35,6 +39,10 @@ bool node_add(node_t **node, const void *value, const int value_size)
 
 bool node_del(node_t *node, const void *value)
 {
+    if(node == NULL)
+        return false;
+    if(value == NULL)
+        return false;
     node_t *iter = node;
     while (iter)
     {

@@ -22,7 +22,10 @@ all: linkedlist.so
 	mkdir -p $(OBJ_FOLDER)
 	$(CC) -c -I $(INC_FOLDER) $(CFLAGS) -o $@ $<
 
-.PHONY : all clean
-clean :
+main: main.c $(SOURCES)
+	$(CC) -g -I $(INC_FOLDER) -L $(LIB_FOLDER) $(CFLAGS) $(LDFLAGS) -o $@ $^
+
+clean:
 	rm -rf $(OBJ_FOLDER) $(LIB_FOLDER)
 
+.PHONY : all main clean Makefile
