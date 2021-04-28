@@ -1,41 +1,28 @@
 SRC_FOLDER = src
 INC_FOLDER = inc
 OBJ_FOLDER = obj
-BIN_FOLDER = bin
 LIB_FOLDER = lib
 
 SOURCES = $(wildcard $(SRC_FOLDER)/*.c)
-HEADERS = $(wildcard $(INC_FOLDER)/*.h)
-
 OBJECTS = $(SOURCES:$(SRC_FOLDER)/%.c=$(OBJ_FOLDER)/%.o)
 PROGRAM = $(shell basename `pwd`)
 
-CC := $(shell which gcc)
-CFLAGS = -Wall -Werror -I $(INC_FOLDER)
-LDFLAGS = -L$(LIB_FOLDER)
-LIBS = -llinkedlist
-MKDIR = mkdir -p
+CC := gcc
+CFLAGS = -g -Wall -Werror
+LDFLAGS =
 
-ifdef DEBUG
-CFLAGS += -g
-endif
+all: linkedlist.so
 
-all: library
+%.so: $(OBJECTS)
+	mkdir -p $(LIB_FOLDER)
+	$(CC) -shared -I $(INC_FOLDER) -L $(LIB_FOLDER) $(CFLAGS) $(LDFLAGS) -o $(LIB_FOLDER)/$@ $^
+	rm -r $(OBJ_FOLDER)
 
-binary : main.c library
-	$(MKDIR) $(BIN_FOLDER)
-	$(CC) $(CFLAGS) $(LDFLAGS) $(LIBS) -o $(BIN_FOLDER)/linkedlist $<
-	chmod +x $(BIN_FOLDER)/linkedlist
+%.o: $(SOURCES)
+	mkdir -p $(OBJ_FOLDER)
+	$(CC) -c -I $(INC_FOLDER) $(CFLAGS) -o $@ $<
 
-library : $(OBJECTS)
-	$(MKDIR) $(LIB_FOLDER)
-	$(CC) -shared $(CFLAGS) $(LDFLAGS) -o $(LIB_FOLDER)/liblinkedlist.so $^
-
-$(OBJ_FOLDER)/%.o : $(SRC_FOLDER)/%.c $(HEADERS)
-	$(MKDIR) $(OBJ_FOLDER)
-	$(CC) $(CFLAGS) -c -o $@ $<
-
-.PHONY : clean
+.PHONY : all clean
 clean :
-	rm -rf $(BIN_FOLDER) $(OBJ_FOLDER) $(LIB_FOLDER)
+	rm -rf $(OBJ_FOLDER) $(LIB_FOLDER)
 
